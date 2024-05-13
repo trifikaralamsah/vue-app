@@ -1,25 +1,13 @@
+import { TCountState } from "@/types/count";
 import { defineStore } from "pinia";
-
-interface TUser {
-  id: string | number;
-  name: string;
-  age: number;
-  email?: string;
-}
-
-interface TCountState {
-  count: number;
-  name: string;
-  users: TUser[];
-}
 
 export const useCounterStore = defineStore("counter", {
   state: (): TCountState => ({
     count: 0,
     name: "Eduardo",
     users: [
-      { id: 1, name: "Nurul", age: 25, email: "nurul@gmail.com" },
-      { id: 2, name: "Fikar", age: 25, email: "fikar@gmail.com" },
+      { id: 1, firstName: "Nurul", age: 25, email: "nurul@gmail.com" },
+      { id: 2, firstName: "Fikar", age: 25, email: "fikar@gmail.com" },
     ],
   }),
   getters: {
@@ -29,6 +17,9 @@ export const useCounterStore = defineStore("counter", {
     increment() {
       this.count++;
       this.users[1].age++;
+    },
+    setUsers(users: { id: number; firstName: string; age: number }[]) {
+      this.users = users;
     },
   },
   persist: {

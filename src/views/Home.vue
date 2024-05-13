@@ -4,6 +4,19 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import { useCounterStore } from "../stores/countStore";
+import { requestApi } from "../utils";
+
 const store = useCounterStore();
+
+onMounted(() => {
+  requestApi({
+    method: "get",
+    endpoint: "users?limit=5&select=firstName,age,email",
+  }).then((res) => {
+    console.log(res.data.users);
+    store.setUsers(res.data.users);
+  });
+});
 </script>
